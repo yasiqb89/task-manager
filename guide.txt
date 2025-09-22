@@ -1,0 +1,16 @@
+life-manager-cli/
+├── api/
+│   ├── taskApi.js
+│   └── expenseApi.js
+├── models/
+│   ├── Task.js
+│   └── Expense.js
+├── data/
+│   ├── tasks.json
+│   └── expenses.json
+├── id-generator.js
+├── cliHelpers/
+│   ├── taskHelpers.js
+│   └── expenseHelpers.js
+├── main.js
+└── README.md
