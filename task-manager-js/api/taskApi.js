@@ -27,13 +27,14 @@ export async function addTask(task) {
 }
 
 export async function updateTask(id, updates) {
-    // TODO: Find task by id, update fields, save
-
     const tasks = await getAllTasks();
     const task = tasks.find(task => task.id === Number(id));
-    if (!task) return false; // no match
 
-    Object.entries(updates).forEach(([key, value]) => { // → [ ["title", "New Title"], ["dueDate", "2025-09-20"] ]
+    if (!task)
+        return false;
+
+    // Updates Format: [ ["title", "New Title"], ["dueDate", "2025-09-20"] ]
+    Object.entries(updates).forEach(([key, value]) => {
         if (value !== undefined && value !== "") {
             if (key === "dueDate") {
                 task.dueDate = new Date(value);
