@@ -1,35 +1,39 @@
-import readline from "readline";
-import idGenerator from "../idGenerator.js";
-import { getAllTasks, addTask, removeTask, updateTask, saveTasks } from "../api/taskApi.js";
+import Task from "../models/Task.js";
+import { addTask, getAllTasks, updateTask, removeTask } from "../api/taskApi.js";
+import { askQuestion } from "./common.js";
 
-const rl = readline.createInterface({
-    input: process.stdin,
-    output: process.stdout
-})
+// Add a new task
+export async function addTaskCli(idGen) {
+    console.log("\n=== Add a New Task ===");
 
-export function closePrompt() {
-    rl.close();
+    const title = await askQuestion("Enter task title: ");
+    const dueDateInput = await askQuestion("Enter due date (YYYY-MM-DD, leave blank if none): ");
+    const category = await askQuestion("Enter category (e.g., Work, Personal): ");
+    const id = idGen.getNextId();
+    const dueDate = dueDateInput ? new Date(dueDateInput) : null;
+
+    const newTask = new Task(id, title, dueDate, "pending", category);
+
+    await addTask(newTask);
+    console.log(`Task "${title}" added successfully with ID ${id}!`);
 }
 
-const tasks = await getAllTasks();
-const maxId = tasks.length > 0 ? Math.max(...tasks.map(n => n.id)) : 0;
-console.log(maxId);
-const idGen = idGenerator(maxId + 1);
-
-export function askQuestion(query) {
-    return new Promise(resolve => rl.question(query, resolve));
-
+// List all tasks
+export async function listTasksCli() {
+    // TODO: fetch and print tasks
+    // Mark overdue
 }
 
-export async function addTaskCli(askQuestion, idGen) {
-
+// Update task
+export async function updateTaskCli() {
+    // TODO: ask for ID, ask for updates
+    // Call updateTask()
+    // Print results
 }
 
-export async function manageTasks() {
-
+// Remove task
+export async function removeTaskCli() {
+    // TODO: ask for ID
+    // Call removeTask()
+    // Print results
 }
-
-export async function manageExpenses() {
-
-}
-

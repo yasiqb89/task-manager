@@ -1,29 +1,49 @@
-import { closePrompt, askQuestion, manageExpenses, manageTasks } from "./cli/cliHelper.js";
+import { setupIdGenerator, askQuestion, closePrompt } from "./cliHelpers/common.js";
+import { addTaskCli, listTasksCli, updateTaskCli, removeTaskCli } from "./cliHelpers/taskHelpers.js";
 
-async function showMenu() {
-    console.log('\n=== Note App ===');
-    console.log('1. Manage Tasks');
-    console.log('2. Manage Expenses');
-    console.log('3. Exit');
+const idGenTasks = await setupIdGenerator();
 
-    const choice = await askQuestion('Enter choice: ');
+async function showMainMenu() {
+    console.log("\n=== Main Menu ===");
+    console.log("1. Manage Tasks");
+    console.log("2. Exit");
+
+    const choice = await askQuestion("Choose: ");
 
     switch (choice.trim()) {
-        case '1':
-            await manageExpenses();
+        case "1":
+            await showTaskMenu(); // user goes into Task Menu
             break;
-        case '2': await manageTasks();
-            break;
-        case '3':
-            console.log('Goodbye');
+        case "2":
+            console.log("Goodbye!");
             closePrompt();
             return;
-        default:
-            console.log('Invalid option. Try again.');
     }
-
-    showMenu();
-
+    // Go back to main menu
+    showMainMenu();
 }
 
-showMenu();
+async function showTaskMenu() {
+    console.log("\n=== Task Menu ===");
+    console.log("1. Add Task");
+    console.log("2. List Tasks");
+    console.log("3. Back");
+
+    const choice = await askQuestion("Choose: ");
+
+    switch (choice.trim()) {
+        case "1":
+            await addTaskCli(idGen);
+            break;
+        case "2":
+            await listTasksCli();
+            break;
+        case "3":
+            return; // ends Task menu, goes back to Main menu
+    }
+
+    // Go back to Task menu
+    showTaskMenu();
+}
+
+showMainMenu();
