@@ -1,7 +1,8 @@
 
 import { readFile, writeFile } from "fs/promises";
-const filePath = new URL('../data/tasks.json', import.meta.url);
+import Task from "../models/Task.js";
 
+const filePath = new URL('../data/tasks.json', import.meta.url);
 
 export async function getAllTasks() {
     try {
@@ -51,7 +52,11 @@ export async function updateTask(id, updates) {
 export async function removeTask(id) {
     const tasks = await getAllTasks();
     const tasksToKeep = tasks.filter(task => task.id !== Number(id));
-    if (tasksToKeep.length === tasks.length) return false; // no match
-    await saveTasks(updated);
+
+    if (tasksToKeep.length === tasks.length) {
+        return false; // no task removed
+    }
+
+    await saveTasks(tasksToKeep);
     return true;
 }

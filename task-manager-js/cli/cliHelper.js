@@ -20,8 +20,19 @@ export async function addTaskCli(idGen) {
 
 // List all tasks
 export async function listTasksCli() {
-    // TODO: fetch and print tasks
-    // Mark overdue
+    const tasks = await getAllTasks();
+
+    if (tasks.length <= 0) {
+        console.log('No tasks to show');
+        return;
+    }
+
+    console.log("\n=== Task List ===");
+    tasks.forEach(task => {
+        console.log(task.info)
+        const overdueMark = task.isOverdue() ? "Overdue!" : '';
+        console.log(`${task.info} ${overdueMark}`);
+    });
 }
 
 // Update task

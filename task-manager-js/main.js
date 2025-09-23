@@ -1,5 +1,6 @@
-import { setupIdGenerator, askQuestion, closePrompt } from "./cliHelpers/common.js";
-import { addTaskCli, listTasksCli, updateTaskCli, removeTaskCli } from "./cliHelpers/taskHelpers.js";
+import { setupIdGenerator, askQuestion, closePrompt } from "./cli/common.js";
+import { addTaskCli, listTasksCli, updateTaskCli, removeTaskCli } from "./cli/cliHelper.js";
+
 
 const idGenTasks = await setupIdGenerator();
 
@@ -27,18 +28,26 @@ async function showTaskMenu() {
     console.log("\n=== Task Menu ===");
     console.log("1. Add Task");
     console.log("2. List Tasks");
-    console.log("3. Back");
+    console.log("3. Update Tasks");
+    console.log("4. Remove Tasks");
+    console.log("5. Back");
 
     const choice = await askQuestion("Choose: ");
 
     switch (choice.trim()) {
         case "1":
-            await addTaskCli(idGen);
+            await addTaskCli(idGenTasks);
             break;
         case "2":
             await listTasksCli();
             break;
         case "3":
+            await updateTaskCli();
+            break;
+        case "4":
+            await removeTaskCli();
+            break;
+        case "5":
             return; // ends Task menu, goes back to Main menu
     }
 

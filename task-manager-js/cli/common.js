@@ -19,6 +19,10 @@ export function closePrompt() {
 export async function setupIdGenerator() {
     const tasks = await getAllTasks();
     const maxId = tasks.length > 0 ? Math.max(...tasks.map(t => t.id)) : 0;
+
+    // tasks = [{ id: 3 }, { id: 7 }, { id: 5 }]
+    // map ->[3, 7, 5] -> Math.max(3, 7, 5) = 7 -> maxId = 7
+
     return idGenerator(maxId + 1);
 }
 
