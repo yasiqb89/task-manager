@@ -10,7 +10,7 @@ class Task {
 
     get info() {
         const due = this.dueDate ? this.dueDate.toLocaleDateString() : 'no due date';
-        return `${this.id}. [${this.status}] ${this.title} (${this.category}) - due ${due}`;
+        return `${this.id}. [${this.status}] ${this.title} (${this.category}) - due: ${due}`;
     }
 
     markComplete() {

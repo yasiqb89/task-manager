@@ -9,7 +9,7 @@ async function showMainMenu() {
     console.log("1. Manage Tasks");
     console.log("2. Exit");
 
-    const choice = await askQuestion("Choose: ");
+    const choice = await askQuestion("Choose option: ");
 
     switch (choice.trim()) {
         case "1":
@@ -19,9 +19,9 @@ async function showMainMenu() {
             console.log("Goodbye!");
             closePrompt();
             return;
+        default:
+            console.log('Invalid option. Try again.');
     }
-    // Go back to main menu
-    showMainMenu();
 }
 
 async function showTaskMenu() {
@@ -32,7 +32,7 @@ async function showTaskMenu() {
     console.log("4. Remove Tasks");
     console.log("5. Back");
 
-    const choice = await askQuestion("Choose: ");
+    const choice = await askQuestion("Choose option: ");
 
     switch (choice.trim()) {
         case "1":
@@ -48,7 +48,10 @@ async function showTaskMenu() {
             await removeTaskCli();
             break;
         case "5":
-            return; // ends Task menu, goes back to Main menu
+            await showMainMenu();
+            return;
+        default:
+            console.log('Invalid option. Try again.');
     }
 
     // Go back to Task menu
