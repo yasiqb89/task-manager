@@ -1,6 +1,7 @@
 import Task from "../models/Task.js";
 import { addTask, getAllTasks, updateTask, removeTask, saveTasks } from "../api/taskApi.js";
 import { askQuestion } from "./common.js";
+import { rawListeners } from "process";
 
 // Add a new task
 export async function addTaskCli(idGen) {
@@ -36,9 +37,54 @@ export async function listTasksCli() {
 
 // Update task
 export async function updateTaskCli() {
-    // TODO: ask for ID, ask for updates
-    // Call updateTask()
-    // Print results
+
+    const tasks = await getAllTasks();
+    if (tasks.length === 0) {
+        console.log('No tasks found to update');
+    }
+
+    console.log("\n=== Task List ===");
+    tasks.forEach(t => {
+        console.log(t.info);
+    });
+
+    const rawId = (await askQuestion('Enter ID (or q to cancel): ')).trim();
+    if (rawId.toLowerCase() == 'q') {
+        console.log('Cancelled.');
+        return;
+    }
+
+    const task = tasks.find(t => t.id === Number(rawId));
+    if (!task) {
+        console.log(`No task found with ID ${rawId}`);
+    }
+
+    console.log("\nTask Details:");
+    console.log(`Current Title: ${task.title}`);
+    console.log(`Current Due Date: ${task.dueDate}`);
+    console.log(`Current Status: ${task.status}`);
+    console.log(`Current Category: ${task.category}`);
+
+
+    const newTitle = await askQuestion('Enter new Title (leave blank to keep current): ');
+    const newDueDate = await askQuestion('Enter new Due Date (leave blank to keep current): ');
+    const newStatus = await askQuestion('Enter new Status (leave blank to keep current): ');
+    const newCategory = await askQuestion('Enter new Category (leave blank to keep current): ');
+
+    const updates = {
+        title: newTitle,
+        dueDate: newDueDate,
+        status: newStatus,
+        category: newCategory
+    };
+
+    const updatedTask = await updateTask(Number(rawId), updates);
+
+    if (updatedTask) {
+        console.log(`Task with ID ${rawId} updated successfully!`);
+    } else {
+        console.log(`Failed to update task with ID ${rawId}.`);
+    }
 }
 
 // Remove task
