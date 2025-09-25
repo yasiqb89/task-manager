@@ -1,7 +1,6 @@
 import Task from "../models/Task.js";
 import { addTask, getAllTasks, updateTask, removeTask, saveTasks } from "../api/taskApi.js";
-import { askQuestion } from "./common.js";
-import { rawListeners } from "process";
+import { askQuestion } from "./common.js"
 
 // Add a new task
 export async function addTaskCli(idGen) {
