@@ -4,11 +4,12 @@ import Task from "../models/Task.js";
 
 const filePath = new URL('../data/tasks.json', import.meta.url);
 
+
 export async function getAllTasks() {
     try {
         const data = await readFile(filePath, 'utf-8');
         const raw = JSON.parse(data);
-        return raw.map(obj => Task.parse(obj));
+        return raw.map(obj => Task.parse(obj)); //returns array of objects
 
     } catch (error) {
         if (error.code === 'ENOENT') return [];
@@ -54,7 +55,7 @@ export async function removeTask(id) {
     const tasksToKeep = tasks.filter(task => task.id !== Number(id));
 
     if (tasksToKeep.length === tasks.length) {
-        return false; // no task removed
+        return false;
     }
 
     await saveTasks(tasksToKeep);

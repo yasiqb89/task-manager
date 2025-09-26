@@ -1,5 +1,5 @@
 import { setupIdGenerator, askQuestion, closePrompt } from "./cli/common.js";
-import { addTaskCli, listTasksCli, updateTaskCli, removeTaskCli } from "./cli/cliHelper.js";
+import { addTaskCli, listTasksCli, updateTaskCli, removeTaskCli, reportStatusCountCli, listOverdueTasksCli } from "./cli/cliHelper.js";
 
 
 async function showMainMenu() {
@@ -36,7 +36,9 @@ async function showTaskMenu() {
         console.log("2. List Tasks");
         console.log("3. Update Tasks");
         console.log("4. Remove Tasks");
-        console.log("5. Back");
+        console.log("5. Status Count");
+        console.log("6. List Overdue Tasks");
+        console.log("7. Go Back");
 
         const choice = await askQuestion("Choose option: ");
 
@@ -54,6 +56,12 @@ async function showTaskMenu() {
                 await removeTaskCli();
                 break;
             case "5":
+                await reportStatusCountCli();
+                break;
+            case "6":
+                await listOverdueTasksCli();
+                break;
+            case "7":
                 back = true;
                 break;
             default:

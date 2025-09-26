@@ -21,6 +21,7 @@ export async function addTaskCli(idGen) {
 // List all tasks
 export async function listTasksCli() {
     const tasks = await getAllTasks();
+    console.log(tasks);
 
     if (tasks.length <= 0) {
         console.log('No tasks to show');
@@ -123,4 +124,46 @@ export async function removeTaskCli() {
         console.log(`Failed to delete task ${id}.`);
     } else
         console.log(`Task ${id} deleted successfully.`);
+}
+
+export async function reportStatusCountCli() {
+
+    const tasks = await getAllTasks();
+
+    if (tasks.length === 0) {
+        console.log('No Tasks!');
+        return;
+    }
+    //{ pending: 3, done: 2 }
+
+    const counts = tasks.reduce((acc, task) => {
+        acc[task.status] = (acc[task.status] || 0) + 1;
+        return acc;
+    }, {});
+
+    console.log('\nStatus Report:');
+    Object.entries(counts).forEach(([key, value]) => {
+        console.log(`- ${key}: ${value}`);
+    });
+}
+
+export async function listOverdueTasksCli() {
+    const tasks = await getAllTasks();
+
+    if (tasks.length === 0) {
+        console.log('No Tasks!');
+        return;
+    }
+
+    const overdueTasks = tasks.filter(task => task.isOverdue());
+
+    if (overdueTasks.length === 0) {
+        console.log(" No overdue tasks!");
+        return;
+    }
+
+    console.log("\n=== Overdue Tasks ===");
+    overdueTasks.forEach(task => {
+        console.log(task.info);
+    });
 }
