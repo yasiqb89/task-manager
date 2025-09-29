@@ -148,8 +148,8 @@ export async function reportStatusCountCli() {
 }
 
 export async function listOverdueTasksCli() {
-    const tasks = await getAllTasks();
 
+    const tasks = await getAllTasks();
     if (tasks.length === 0) {
         console.log('No Tasks!');
         return;
@@ -165,5 +165,32 @@ export async function listOverdueTasksCli() {
     console.log("\n=== Overdue Tasks ===");
     overdueTasks.forEach(task => {
         console.log(task.info);
+    });
+}
+
+export async function filterTasksByCategoryCli() {
+
+    const tasks = await getAllTasks();
+    if (tasks.length == 0) {
+        console.log('No tasks!');
+        return;
+    }
+
+    const category = (await askQuestion('\nEnter Task Category (or q to cancel): ')).trim();
+    if (category.toLowerCase() === 'q') {
+        console.log('Cancelled.');
+        return;
+    }
+
+    const filteredTasks = tasks.filter(t => t.category === category);
+
+    if (!filteredTasks) {
+        console.log(`No task found with category ${category}`);
+        return;
+    }
+
+    console.log("\n=== Filtered Tasks ===");
+    filteredTasks.forEach(t => {
+        console.log(t.info);
     });
 }
