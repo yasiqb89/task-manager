@@ -1,5 +1,5 @@
 import { setupIdGenerator, askQuestion, closePrompt } from "./cli/common.js";
-import { addTaskCli, listTasksCli, updateTaskCli, removeTaskCli, reportStatusCountCli, listOverdueTasksCli, filterTasksByCategoryCli } from "./cli/cliHelper.js";
+import { addTaskCli, listTasksCli, updateTaskCli, removeTaskCli, reportStatusCountCli, listOverdueTasksCli, filterTasksByCategoryCli, markTaskCompleteCli } from "./cli/cliHelper.js";
 
 
 async function showMainMenu() {
@@ -38,8 +38,9 @@ async function showTaskMenu() {
         console.log("4. Remove Tasks");
         console.log("5. Status Count");
         console.log("6. List Overdue Tasks");
-        console.log("7. Search Task With Category");
-        console.log("8. Go Back");
+        console.log("7. Filter Tasks by Categoryy");
+        console.log("8. MArk Task as Complete");
+        console.log("9. Go Back");
 
         const choice = await askQuestion("Choose option: ");
 
@@ -66,6 +67,8 @@ async function showTaskMenu() {
                 await filterTasksByCategoryCli();
                 break;
             case "8":
+                await markTaskCompleteCli();
+            case "9":
                 back = true;
                 break;
             default:

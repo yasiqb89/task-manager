@@ -194,3 +194,32 @@ export async function filterTasksByCategoryCli() {
         console.log(t.info);
     });
 }
+
+export async function markTaskCompleteCli() {
+    const tasks = await getAllTasks();
+    if (tasks.length == 0) {
+        console.log('No tasks!');
+        return;
+    }
+
+    console.log("\n=== Tasks ===");
+    tasks.forEach(t => {
+        console.log(t.info);
+    });
+
+    const taskId = (await askQuestion('\nEnter Task ID to mark complete (or q to cancel): ')).trim();
+    if (taskId.toLowerCase() === 'q') {
+        console.log('Cancelled.');
+        return;
+    }
+
+    const task = tasks.find(t => t.id === Number(taskId));
+    if (!task) {
+        console.log(`No task with ID ${taskId}`);
+        return;
+    }
+
+    task.markComplete();
+    await saveTasks(tasks);
+    console.log(`Task with ID ${taskId} marked complete`);
+}
