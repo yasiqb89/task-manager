@@ -249,6 +249,13 @@ export async function listGroupedTasksCli() {
         return;
     }
 
+    tasks.sort((a, b) => {
+        if (!a.dueDate && !b.dueDate) return 0;      // both null → keep order
+        if (!a.dueDate) return 1;                    // a has no date → push it down
+        if (!b.dueDate) return -1;                   // b has no date → push it down
+        return a.dueDate - b.dueDate;                // both valid → compare normally
+    });
+
     const pendingTasks = tasks.filter(t => t.status === "pending");
     if (!pendingTasks) {
         console.log('No Pending Tasks');
