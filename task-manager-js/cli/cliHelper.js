@@ -2,15 +2,33 @@ import Task from "../models/Task.js";
 import { addTask, getAllTasks, updateTask, removeTask, saveTasks } from "../api/taskApi.js";
 import { askQuestion } from "./common.js"
 
-// Add a new task
+
 export async function addTaskCli(idGen) {
     console.log("\n=== Add a New Task ===");
+    const title = (await askQuestion("Enter task title: ")).trim();
+    if (!title) {
+        console.log("Task title cannot be empty!");
+        return;
+    }
 
-    const title = await askQuestion("Enter task title: ");
-    const dueDateInput = await askQuestion("Enter due date (YYYY-MM-DD, leave blank if none): ");
+    const dueDateInput = await askQuestion("Enter due date (YYYY-MM-DD, leave blank if none): ").trim();
+    let dueDate = null;
+    if (dueDateInput) {
+        dueDate = new Date(dueDateInput);
+        if (isNaN(dueDate.getTime())) {
+            console.log("Invalid date format. Please use YYYY-MM-DD.");
+            return;
+        }
+    }
+
     const category = await askQuestion("Enter category (e.g., Work, Personal): ");
+    if (!category) {
+        console.log("Category cannot be empty!");
+        return;
+    }
+
     const id = idGen.getNextId();
-    const dueDate = dueDateInput ? new Date(dueDateInput) : null;
+    //const dueDate = dueDateInput ? new Date(dueDateInput) : null;
 
     const newTask = new Task(id, title, dueDate, "pending", category);
 
@@ -222,4 +240,29 @@ export async function markTaskCompleteCli() {
     task.markComplete();
     await saveTasks(tasks);
     console.log(`Task with ID ${taskId} marked complete`);
+}
+
+export async function listGroupedTasksCli() {
+    const tasks = await getAllTasks();
+    if (tasks.length === 0) {
+        console.log('No tasks!');
+        return;
+    }
+
+    const pendingTasks = tasks.filter(t => t.status === "pending");
+    if (!pendingTasks) {
+        console.log('No Pending Tasks');
+        return;
+    }
+    console.log("\n=== Pending Tasks ===");
+    pendingTasks.forEach(t => console.log(t.info));
+
+    const doneTasks = tasks.filter(t => t.status === "done");
+    if (!doneTasks) {
+        console.log('No Completed Tasks');
+        return;
+    }
+    console.log("\n=== Completed Tasks ===");
+    doneTasks.forEach(t => console.log(t.info));
+
 }
