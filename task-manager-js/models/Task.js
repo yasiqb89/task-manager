@@ -9,7 +9,11 @@ class Task {
     }
 
     get info() {
-        const due = this.dueDate ? this.dueDate.toLocaleDateString() : 'no due date';
+        const due = this.dueDate ? this.dueDate.toLocaleDateString("en-US", {
+            year: "numeric",
+            month: "short",
+            day: "numeric"
+        }) : 'no due date';
         return `${this.id}. [${this.status}] ${this.title} (${this.category}) - due: ${due}`;
     }
 

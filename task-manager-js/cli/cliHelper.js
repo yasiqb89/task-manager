@@ -250,10 +250,10 @@ export async function listGroupedTasksCli() {
     }
 
     tasks.sort((a, b) => {
-        if (!a.dueDate && !b.dueDate) return 0;      // both null → keep order
-        if (!a.dueDate) return 1;                    // a has no date → push it down
-        if (!b.dueDate) return -1;                   // b has no date → push it down
-        return a.dueDate - b.dueDate;                // both valid → compare normally
+        if (!a.dueDate && !b.dueDate) return 0;      // both null  keep order
+        if (!a.dueDate) return 1;                    // a has no date push it down
+        if (!b.dueDate) return -1;                   // b has no date push it down
+        return a.dueDate - b.dueDate;                // both valid compare normally
     });
 
     const pendingTasks = tasks.filter(t => t.status === "pending");
@@ -271,5 +271,33 @@ export async function listGroupedTasksCli() {
     }
     console.log("\n=== Completed Tasks ===");
     doneTasks.forEach(t => console.log(t.info));
+
+}
+
+export async function searchTasksCli() {
+    const tasks = await getAllTasks();
+    if (tasks.length === 0) {
+        console.log('No tasks!');
+        return;
+    }
+
+    const keyword = (await askQuestion('\nEnter Keyword to search (or q to cancel): ')).trim().toLowerCase();
+    if (keyword.toLowerCase() === 'q') {
+        console.log('Cancelled.');
+        return;
+    }
+
+    const tasksWithKeyword = tasks.filter(t =>
+        (t.title.toLowerCase().includes(keyword) || t.category.toLowerCase().includes(keyword))
+    );
+
+    console.log(tasksWithKeyword);
+    if (tasksWithKeyword.length === 0) {
+        console.log('No task found!');
+        return;
+    }
+
+    console.log("\n=== Search Result ===");
+    tasksWithKeyword.forEach(t => console.log(t.info));
 
 }
