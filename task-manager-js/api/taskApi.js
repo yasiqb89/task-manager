@@ -12,8 +12,8 @@ export async function getAllTasks() {
         return raw.map(obj => Task.parse(obj)); //returns array of objects
 
     } catch (error) {
-        if (error.code === 'ENOENT') return [];
-        throw error;
+        if (error.code === 'ENOENT') return []; // ENOENT = file or directory doesn’t exist
+        throw error; // All other errors
     }
 }
 
