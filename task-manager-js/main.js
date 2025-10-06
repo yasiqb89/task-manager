@@ -1,13 +1,14 @@
-import { setupIdGenerator, askQuestion, closePrompt } from "./cli/common.js";
+import { setupTaskIdGenerator, askQuestion, closePrompt } from "./cli/common.js";
 import { addTaskCli, listTasksCli, updateTaskCli, removeTaskCli, reportStatusCountCli, listOverdueTasksCli, filterTasksByCategoryCli, markTaskCompleteCli, listGroupedTasksCli, searchTasksCli } from "./cli/cliHelper.js";
-
+import { addExpensesCli, listExpensesCli, removeExpensesCli, updateExpensesCli } from "./cli/expenseCliHelper.js";
 
 async function showMainMenu() {
     let exit = false;
     while (!exit) {
         console.log("\n=== Main Menu ===");
         console.log("1. Manage Tasks");
-        console.log("2. Exit");
+        console.log("2. Manage Expenses")
+        console.log("3. Exit");
 
         const choice = await askQuestion("Choose option: ");
 
@@ -16,6 +17,9 @@ async function showMainMenu() {
                 await showTaskMenu();
                 break;
             case "2":
+                await showExpensesMenu();
+                break;
+            case "3":
                 exit = true;
                 console.log("Goodbye!");
                 break;
@@ -26,9 +30,45 @@ async function showMainMenu() {
     closePrompt();
 }
 
+async function showExpensesMenu() {
+    let back = false;
+    const idGenExpenses = await setupTaskIdGenerator();
+
+    while (!back) {
+        console.log("\n=== Expenses Menu ===");
+        console.log("1. Add Expense");
+        console.log("2. List Expenses");
+        console.log("3. Update Expense");
+        console.log("4. Remove Expense");
+        console.log("5. Go Back");
+
+        const choice = await askQuestion("Choose option: ");
+
+        switch (choice.trim()) {
+            case "1":
+                await addExpensesCli(idGenExpenses);
+                break;
+            case "2":
+                await listExpensesCli();
+                break;
+            case "3":
+                await updateExpensesCli();
+                break;
+            case "4":
+                await removeExpensesCli();
+                break;
+            case "5":
+                back = true;
+                break;
+            default:
+                console.log('Invalid option. Try again.');
+        }
+    }
+}
+
 async function showTaskMenu() {
     let back = false;
-    const idGenTasks = await setupIdGenerator();
+    const idGenTasks = await setupTaskIdGenerator();
 
     while (!back) {
         console.log("\n=== Task Menu ===");

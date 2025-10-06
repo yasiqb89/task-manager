@@ -60,7 +60,19 @@ export async function updateExpense(id, updates) {
     return expense;
 }
 
-// 	•	removeExpense(id) → delete by ID, save.
-// 	3.	Data file
-// 	•	Create /data/expenses.json.
-// 	•	Start with [] inside so you can append.
+
+export async function removeExpense(id) {
+    const expenses = await getAllExpenses();
+    const keepExpenses = expenses.filter(e => Number(e.id) !== Number(id));
+    if (keepExpenses.length === expenses.length) {
+        console.log('Expense does not exist');
+        return;
+    }
+
+    await saveExpenses(keepExpenses);
+    return true;
+
+    // const updated = expenses.toSpliced
+    //     ? expenses.toSpliced(idx, 1)
+    //     : expenses.slice(0, idx).concat(expenses.slice(idx + 1));
+}

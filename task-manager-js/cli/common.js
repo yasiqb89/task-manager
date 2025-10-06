@@ -1,6 +1,9 @@
 import readline from "readline";
 import idGenerator from "../idGenerator.js";
 import { getAllTasks } from "../api/taskApi.js";
+import { getAllExpenses } from "../api/expenseApi.js";
+
+
 
 const rl = readline.createInterface({
     input: process.stdin,
@@ -16,7 +19,7 @@ export function closePrompt() {
     rl.close();
 }
 
-export async function setupIdGenerator() {
+export async function setupTaskIdGenerator() {
     const tasks = await getAllTasks();
     const maxId = tasks.length > 0 ? Math.max(...tasks.map(t => t.id)) : 0;
 
@@ -26,3 +29,8 @@ export async function setupIdGenerator() {
     return idGenerator(maxId + 1);
 }
 
+export async function setupExpenseIdGenerator() {
+    const expenses = await getAllExpenses();
+    const maxId = expenses.length > 0 ? Math.max(...expenses.map(e => e.id)) : 0;
+    return idGenerator(maxId + 1);
+}

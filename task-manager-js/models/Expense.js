@@ -27,3 +27,5 @@ if (import.meta.url === `file://${process.argv[1]}`) {
     const e1 = new Expense(1, "Lunch", 12.5, "Food", new Date());
     console.log(e1.info);
 }
+
+export default Expense;
