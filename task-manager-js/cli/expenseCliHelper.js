@@ -204,11 +204,32 @@ export async function filterByDateRangeCli(testStart = null, testEnd = null) {
 
 }
 
+export async function totalSpendingCli() {
+	const expenses = await getAllExpenses();
+	if (expenses.length === 0) {
+		console.log('No expense found');
+	}
+
+	const totalSpent = expenses.reduce((acc, curr) => {
+		return acc += curr.amount;
+	}, 0);
+
+
+
+	console.log('\n=== Expense Summary ===')
+	console.log(
+		`Total Expenses: ${expenses.length}`,
+		`\nTotal Amount Spent: $${totalSpent.toFixed(2)}`
+	);
+
+
+}
 
 // For testing individual functions in this file 
 if (import.meta.url === `file://${process.argv[1]}`) {
 	console.log("Running test for filterByCategoryCli()...\n");
 	//await filterByCategoryCli("personal");
-	await filterByDateRangeCli("2025-09-01", "2025-09-30");
+	//await filterByDateRangeCli("2025-09-01", "2025-09-30");
+	await totalSpendingCli();
 	process.exit(0);
 }

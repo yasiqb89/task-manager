@@ -1,6 +1,6 @@
 import { setupTaskIdGenerator, askQuestion, closePrompt, setupExpenseIdGenerator } from "./cli/common.js";
 import { addTaskCli, listTasksCli, updateTaskCli, removeTaskCli, reportStatusCountCli, listOverdueTasksCli, filterTasksByCategoryCli, markTaskCompleteCli, listGroupedTasksCli, searchTasksCli } from "./cli/taskCliHelper.js";
-import { addExpensesCli, listExpensesCli, removeExpensesCli, updateExpensesCli, filterByDateRangeCli, filterByCategoryCli } from "./cli/expenseCliHelper.js";
+import { addExpensesCli, listExpensesCli, removeExpensesCli, updateExpensesCli, filterByDateRangeCli, filterByCategoryCli, totalSpendingCli } from "./cli/expenseCliHelper.js";
 
 async function showMainMenu() {
     let exit = false;
@@ -67,6 +67,9 @@ async function showExpensesMenu() {
                 await filterByDateRangeCli();
                 break;
             case "7":
+                await totalSpendingCli();
+                break;
+            case "8":
                 back = true;
                 break;
             default:
