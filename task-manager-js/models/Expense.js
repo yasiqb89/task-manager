@@ -14,11 +14,11 @@ class Expense {
             month: "short",
             day: "numeric"
         });
-        return `${this.id}. ${this.title} - $(${formattedAmount}) (${this.category}) on ${formattedDate}`;
+        return `${this.id}. ${this.title} - $${formattedAmount} (${this.category}) on ${formattedDate}`;
     }
 
     static parse(obj) {
-        return new Expense(obj.id, obj.title, obj.amount, obj.category, obj.date);
+        return new Expense(obj.id, obj.title, obj.amount, obj.category, new Date(obj.date));
     }
 }
 

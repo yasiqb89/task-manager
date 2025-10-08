@@ -141,7 +141,7 @@ export async function updateExpensesCli() {
 }
 
 export async function filterByCategoryCli(testCategory = null) {
-	// 	•	Fetch all expenses.
+
 	const expenses = await getAllExpenses();
 	if (expenses.length === 0) {
 		console.log('No expense found');
@@ -173,13 +173,42 @@ export async function filterByCategoryCli(testCategory = null) {
 }
 
 
-if (import.meta.url === `file://${process.argv[1]}`) {
-	console.log("Running test for filterByCategoryCli()...\n");
-	await filterByCategoryCli("personal"); // any test category you want
-	process.exit(0);
+export async function filterByDateRangeCli(testStart = null, testEnd = null) {
+	const expenses = await getAllExpenses();
+	if (expenses.length === 0) {
+		console.log('No expense found');
+	}
+
+	const startDate = testStart ? testStart : (await askQuestion("Enter start date (YYYY-MM-DD): ")).trim();
+	const endDate = testEnd ? testEnd : (await askQuestion("Enter end date (YYYY-MM-DD): ")).trim();
+
+	const start = new Date(startDate);
+	const end = new Date(endDate);
+	const filteredByDates = expenses.filter(e => e.date >= start && e.date <= end);
+
+	if (filteredByDates.length === 0) {
+		console.log("No expenses with in that range");
+		return;
+	}
+
+	console.log("\n=== Expenses in Range ===");
+	filteredByDates.forEach(e => console.log(e.info));
+
+	const totalSpent = filteredByDates.reduce((acc, curr) => {
+		return acc += curr.amount;
+	}, 0);
+
+	console.log(
+		`\n-> Total spent from ${start.toLocaleDateString()} to ${end.toLocaleDateString()}: $${totalSpent.toFixed(2)}`
+	);
+
 }
 
 
-// 5.	optional — Reports (after core is done)
-// •	Filter by category/date range.
-// •	Show total spending.
+// For testing individual functions in this file 
+if (import.meta.url === `file://${process.argv[1]}`) {
+	console.log("Running test for filterByCategoryCli()...\n");
+	//await filterByCategoryCli("personal");
+	await filterByDateRangeCli("2025-09-01", "2025-09-30");
+	process.exit(0);
+}

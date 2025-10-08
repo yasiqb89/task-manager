@@ -1,14 +1,14 @@
 [
   {
     "id": 1,
-    "title": "Gym",
+    "title": "Gym Membership",
     "amount": 500,
     "category": "training",
     "date": "2025-09-02T00:00:00.000Z"
   },
   {
     "id": 2,
-    "title": "Blizzard",
+    "title": "Blizzard Game",
     "amount": 50,
     "category": "personal",
     "date": "2025-10-01T00:00:00.000Z",
@@ -24,10 +24,121 @@
   },
   {
     "id": 4,
-    "title": "Football",
-    "amount": 50,
-    "category": "fifa",
-    "date": "2024-10-01T00:00:00.000Z",
-    "status": "old game"
+    "title": "Football Tickets",
+    "amount": 120,
+    "category": "entertainment",
+    "date": "2024-10-01T00:00:00.000Z"
+  },
+  {
+    "id": 5,
+    "title": "Grocery Shopping",
+    "amount": 220.75,
+    "category": "household",
+    "date": "2025-08-15T00:00:00.000Z"
+  },
+  {
+    "id": 6,
+    "title": "Electricity Bill",
+    "amount": 95.3,
+    "category": "utilities",
+    "date": "2025-09-05T00:00:00.000Z"
+  },
+  {
+    "id": 7,
+    "title": "Internet Bill",
+    "amount": 70,
+    "category": "utilities",
+    "date": "2025-09-10T00:00:00.000Z"
+  },
+  {
+    "id": 8,
+    "title": "Netflix Subscription",
+    "amount": 15.99,
+    "category": "entertainment",
+    "date": "2025-10-03T00:00:00.000Z"
+  },
+  {
+    "id": 9,
+    "title": "Dinner with Friends",
+    "amount": 85,
+    "category": "food",
+    "date": "2025-09-12T00:00:00.000Z"
+  },
+  {
+    "id": 10,
+    "title": "Taxi to Airport",
+    "amount": 35,
+    "category": "travel",
+    "date": "2025-08-25T00:00:00.000Z"
+  },
+  {
+    "id": 11,
+    "title": "Flight Tickets",
+    "amount": 450,
+    "category": "travel",
+    "date": "2025-09-28T00:00:00.000Z"
+  },
+  {
+    "id": 12,
+    "title": "New Headphones",
+    "amount": 120,
+    "category": "electronics",
+    "date": "2025-07-20T00:00:00.000Z"
+  },
+  {
+    "id": 13,
+    "title": "Coffee Beans",
+    "amount": 18.5,
+    "category": "food",
+    "date": "2025-09-06T00:00:00.000Z"
+  },
+  {
+    "id": 14,
+    "title": "Laptop Stand",
+    "amount": 45.99,
+    "category": "office",
+    "date": "2025-08-05T00:00:00.000Z"
+  },
+  {
+    "id": 15,
+    "title": "Book Purchase",
+    "amount": 22,
+    "category": "education",
+    "date": "2025-09-03T00:00:00.000Z"
+  },
+  {
+    "id": 16,
+    "title": "Conference Ticket",
+    "amount": 180,
+    "category": "education",
+    "date": "2025-10-10T00:00:00.000Z"
+  },
+  {
+    "id": 17,
+    "title": "Charity Donation",
+    "amount": 60,
+    "category": "misc",
+    "date": "2025-09-14T00:00:00.000Z"
+  },
+  {
+    "id": 18,
+    "title": "Car Fuel",
+    "amount": 65.4,
+    "category": "transport",
+    "date": "2025-09-11T00:00:00.000Z"
+  },
+  {
+    "id": 19,
+    "title": "Parking Fees",
+    "amount": 10,
+    "category": "transport",
+    "date": "2025-08-18T00:00:00.000Z"
+  },
+  {
+    "id": 20,
+    "title": "Concert Tickets",
+    "amount": 130,
+    "category": "entertainment",
+    "date": "2025-09-25T00:00:00.000Z"
   }
 ]
