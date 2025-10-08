@@ -1,9 +1,33 @@
 [
   {
-    "id": 6,
+    "id": 1,
     "title": "Gym",
     "amount": 500,
     "category": "training",
     "date": "2025-09-02T00:00:00.000Z"
+  },
+  {
+    "id": 2,
+    "title": "Blizzard",
+    "amount": 50,
+    "category": "personal",
+    "date": "2025-10-01T00:00:00.000Z",
+    "status": "new game"
+  },
+  {
+    "id": 3,
+    "title": "Mobile Subscription",
+    "amount": 50,
+    "category": "personal",
+    "date": "2025-09-01T00:00:00.000Z",
+    "status": "phones"
+  },
+  {
+    "id": 4,
+    "title": "Football",
+    "amount": 50,
+    "category": "fifa",
+    "date": "2024-10-01T00:00:00.000Z",
+    "status": "old game"
   }
 ]

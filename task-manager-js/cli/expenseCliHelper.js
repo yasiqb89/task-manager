@@ -45,6 +45,11 @@ export async function addExpensesCli(idGen) {
 export async function listExpensesCli() {
 
 	const expenses = await getAllExpenses();
+	if (expenses.length === 0) {
+		console.log("No expenses!");
+		return;
+	}
+
 	expenses.forEach(e => {
 		console.log(e.info);
 	});
@@ -52,21 +57,126 @@ export async function listExpensesCli() {
 }
 
 export async function removeExpensesCli() {
-	//Todo
 
-	// 3.	removeExpenseCli()
-	// •	Ask for an ID, confirm it exists, call removeExpense(id).
+	const expenses = await getAllExpenses();
+	if (expenses.length === 0) {
+		console.log("No expenses!");
+		return;
+	}
 
+	const expenseId = (await askQuestion("Enter expense ID: ")).trim();
+	if (!expenseId) {
+		console.log("ID cannot be empty!");
+		return;
+	}
+
+	const id = Number(expenseId);
+	if (!Number.isInteger(id)) {
+		console.log("Please enter a valid numeric ID.");
+		return;
+	}
+
+	const expenseExists = expenses.some(e => e.id === id);
+	if (!expenseExists) {
+		console.log(`No Expense with id ${id}.`);
+		return;
+	}
+
+	const response = await removeExpense(id);
+	if (response) {
+		console.log(`Expense with ID-${id} removed successfully.`);
+	}
 }
 
 export async function updateExpensesCli() {
-	//Todo
+	const expenses = await getAllExpenses();
+	if (expenses.length === 0) {
+		console.log("No expenses!");
+		return;
+	}
 
-	// 4.	updateExpenseCli()
-	// •	Ask which expense to edit.
-	// •	Prompt for new fields (blank = keep current).
-	// •	Call updateExpense(id, updates).
+	const expenseId = (await askQuestion("Enter expense ID: ")).trim();
+	if (!expenseId) {
+		console.log("ID cannot be empty!");
+		return;
+	}
 
+	const id = Number(expenseId);
+	if (!Number.isInteger(id)) {
+		console.log("Please enter a valid numeric ID.");
+		return;
+	}
+
+	const expense = expenses.find(e => e.id === id);
+	if (!expense) {
+		console.log(`No Expense with id ${id}.`);
+		return;
+	}
+
+	console.log("\n===Expenses Details===");
+	console.log(`Current Title: ${expense.title}`);
+	console.log(`Current Status: ${expense.amount}`);
+	console.log(`Current Category: ${expense.category}`);
+	console.log(`Current Due Date: ${expense.date}`);
+
+	const newTitle = await askQuestion('Enter new Title (leave blank to keep current): ');
+	const newStatus = await askQuestion('Enter new Status (leave blank to keep current): ');
+	const newCategory = await askQuestion('Enter new Category (leave blank to keep current): ');
+	const newDate = await askQuestion('Enter new Date (leave blank to keep current): ');
+
+	const updates = {
+		title: newTitle,
+		status: newStatus,
+		category: newCategory,
+		date: newDate
+	};
+
+	const response = await updateExpense(id, updates);
+	if (response) {
+		console.log(`Expense with ID ${id} updated successfully!`);
+	} else {
+		console.log(`Failed to update Expense with ID ${id}.`);
+	}
+
+}
+
+export async function filterByCategoryCli(testCategory = null) {
+	// 	•	Fetch all expenses.
+	const expenses = await getAllExpenses();
+	if (expenses.length === 0) {
+		console.log('No expense found');
+	}
+
+	const categoryInput = testCategory ? testCategory : (await askQuestion("Enter Category: ")).trim();
+	if (!categoryInput) {
+		console.log("Category cannot be empty!");
+		return;
+	}
+
+	const filteredExpenses = expenses.filter(e => e.category.toLowerCase() === categoryInput.toLowerCase());
+	if (filteredExpenses.length === 0) {
+		console.log('No expenses found with that category');
+		return;
+	}
+
+	console.log('===Search Results===');
+	filteredExpenses.forEach(e => {
+		console.log(e.info);
+	});
+
+	const totalSpent = filteredExpenses.reduce((acc, curr) => {
+		return acc + curr.amount;
+	}, 0);
+
+	console.log(`-> Total spent in "${categoryInput}": $${totalSpent.toFixed(2)}`);
+
+}
+
+
+if (import.meta.url === `file://${process.argv[1]}`) {
+	console.log("Running test for filterByCategoryCli()...\n");
+	await filterByCategoryCli("personal"); // any test category you want
+	process.exit(0);
 }
 
 

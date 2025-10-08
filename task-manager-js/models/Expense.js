@@ -14,7 +14,7 @@ class Expense {
             month: "short",
             day: "numeric"
         });
-        return `${this.id}. ${this.title} - $ ${formattedAmount} (${this.category}) on ${formattedDate}`;
+        return `${this.id}. ${this.title} - $(${formattedAmount}) (${this.category}) on ${formattedDate}`;
     }
 
     static parse(obj) {

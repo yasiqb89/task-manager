@@ -1,5 +1,5 @@
-import { setupTaskIdGenerator, askQuestion, closePrompt } from "./cli/common.js";
-import { addTaskCli, listTasksCli, updateTaskCli, removeTaskCli, reportStatusCountCli, listOverdueTasksCli, filterTasksByCategoryCli, markTaskCompleteCli, listGroupedTasksCli, searchTasksCli } from "./cli/cliHelper.js";
+import { setupTaskIdGenerator, askQuestion, closePrompt, setupExpenseIdGenerator } from "./cli/common.js";
+import { addTaskCli, listTasksCli, updateTaskCli, removeTaskCli, reportStatusCountCli, listOverdueTasksCli, filterTasksByCategoryCli, markTaskCompleteCli, listGroupedTasksCli, searchTasksCli } from "./cli/taskCliHelper.js";
 import { addExpensesCli, listExpensesCli, removeExpensesCli, updateExpensesCli } from "./cli/expenseCliHelper.js";
 
 async function showMainMenu() {
@@ -32,7 +32,7 @@ async function showMainMenu() {
 
 async function showExpensesMenu() {
     let back = false;
-    const idGenExpenses = await setupTaskIdGenerator();
+    const idGenExpenses = await setupExpenseIdGenerator();
 
     while (!back) {
         console.log("\n=== Expenses Menu ===");
