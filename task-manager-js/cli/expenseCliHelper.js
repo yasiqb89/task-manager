@@ -260,6 +260,6 @@ if (import.meta.url === `file://${process.argv[1]}`) {
 	//await filterByCategoryCli("personal");
 	//await filterByDateRangeCli("2025-09-01", "2025-09-30");
 	//await totalSpendingCli();
-	await summaryByCategory();
+	//await summaryByCategory();
 	process.exit(0);
 }
