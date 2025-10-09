@@ -1,6 +1,6 @@
 import { setupTaskIdGenerator, askQuestion, closePrompt, setupExpenseIdGenerator } from "./cli/common.js";
 import { addTaskCli, listTasksCli, updateTaskCli, removeTaskCli, reportStatusCountCli, listOverdueTasksCli, filterTasksByCategoryCli, markTaskCompleteCli, listGroupedTasksCli, searchTasksCli } from "./cli/taskCliHelper.js";
-import { addExpensesCli, listExpensesCli, removeExpensesCli, updateExpensesCli, filterByDateRangeCli, filterByCategoryCli, totalSpendingCli } from "./cli/expenseCliHelper.js";
+import { addExpensesCli, listExpensesCli, removeExpensesCli, updateExpensesCli, filterByDateRangeCli, filterByCategoryCli, totalSpendingCli, summaryByCategory } from "./cli/expenseCliHelper.js";
 
 async function showMainMenu() {
     let exit = false;
@@ -43,7 +43,8 @@ async function showExpensesMenu() {
         console.log("5. Filter by Category");
         console.log("6. Filter by Date Range");
         console.log("7. Show Total Spending");
-        console.log("8. Go Back");
+        console.log("8. Show Summary by Category");
+        console.log("9. Go Back");
 
         const choice = await askQuestion("\nChoose option: ");
 
@@ -70,6 +71,9 @@ async function showExpensesMenu() {
                 await totalSpendingCli();
                 break;
             case "8":
+                await summaryByCategory();
+                break;
+            case "9":
                 back = true;
                 break;
             default:
