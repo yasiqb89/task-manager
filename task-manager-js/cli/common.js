@@ -38,3 +38,7 @@ export async function setupExpenseIdGenerator() {
 export function loadingMessage() {
     console.log("loading...");
 }
+
+export async function simulateDelay(ms = 1000) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}

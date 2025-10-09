@@ -1,6 +1,7 @@
 
 import { readFile, writeFile } from "fs/promises";
 import Task from "../models/Task.js";
+import { simulateDelay } from "../cli/common.js"
 
 const filePath = new URL('../data/tasks.json', import.meta.url);
 
@@ -63,6 +64,3 @@ export async function removeTask(id) {
     return true;
 }
 
-async function simulateDelay(ms = 1000) {
-    return new Promise(resolve => setTimeout(resolve, ms));
-}

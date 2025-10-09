@@ -1,13 +1,15 @@
 import { readFile, writeFile } from "fs/promises";
 import Expense from "../models/Expense.js";
+import { simulateDelay } from "../cli/common.js"
 
 
 const filePath = new URL('../data/expenses.json', import.meta.url);
 
-export async function getAllExpenses() {
+export async function getAllExpenses({ noDelay = false } = {}) {
     try {
         const data = await readFile(filePath, 'utf-8');
         const raw = JSON.parse(data);
+        if (!noDelay) await simulateDelay(2000);
         return raw.map(obj => Expense.parse(obj));
 
     } catch (error) {
@@ -75,9 +77,4 @@ export async function removeExpense(id) {
     // const updated = expenses.toSpliced
     //     ? expenses.toSpliced(idx, 1)
     //     : expenses.slice(0, idx).concat(expenses.slice(idx + 1));
-}
-
-
-function simulateDelay(ms = 1000) {
-    return new Promise(resolve => setTimeout(resolve, 1000));
 }
