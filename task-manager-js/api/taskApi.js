@@ -5,10 +5,11 @@ import Task from "../models/Task.js";
 const filePath = new URL('../data/tasks.json', import.meta.url);
 
 
-export async function getAllTasks() {
+export async function getAllTasks({ noDelay = false } = {}) {
     try {
         const data = await readFile(filePath, 'utf-8');
         const raw = JSON.parse(data);
+        if (!noDelay) await simulateDelay(3000);
         return raw.map(obj => Task.parse(obj)); //returns array of objects
 
     } catch (error) {
@@ -60,4 +61,8 @@ export async function removeTask(id) {
 
     await saveTasks(tasksToKeep);
     return true;
+}
+
+async function simulateDelay(ms = 1000) {
+    return new Promise(resolve => setTimeout(resolve, ms));
 }

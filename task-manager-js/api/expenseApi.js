@@ -76,3 +76,8 @@ export async function removeExpense(id) {
     //     ? expenses.toSpliced(idx, 1)
     //     : expenses.slice(0, idx).concat(expenses.slice(idx + 1));
 }
+
+
+function simulateDelay(ms = 1000) {
+    return new Promise(resolve => setTimeout(resolve, 1000));
+}

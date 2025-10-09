@@ -20,7 +20,7 @@ export function closePrompt() {
 }
 
 export async function setupTaskIdGenerator() {
-    const tasks = await getAllTasks();
+    const tasks = await getAllTasks({ noDelay: true });
     const maxId = tasks.length > 0 ? Math.max(...tasks.map(t => t.id)) : 0;
 
     // tasks = [{ id: 3 }, { id: 7 }, { id: 5 }]
@@ -30,7 +30,11 @@ export async function setupTaskIdGenerator() {
 }
 
 export async function setupExpenseIdGenerator() {
-    const expenses = await getAllExpenses();
+    const expenses = await getAllExpenses({ noDelay: true });
     const maxId = expenses.length > 0 ? Math.max(...expenses.map(e => e.id)) : 0;
     return idGenerator(maxId + 1);
+}
+
+export function loadingMessage() {
+    console.log("loading...");
 }

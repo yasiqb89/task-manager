@@ -39,8 +39,6 @@ export async function addTaskCli(idGen) {
 // List all tasks
 export async function listTasksCli() {
     const tasks = await getAllTasks();
-    console.log(tasks);
-
     if (tasks.length <= 0) {
         console.log('No tasks to show');
         return;

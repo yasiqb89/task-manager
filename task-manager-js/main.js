@@ -1,4 +1,4 @@
-import { setupTaskIdGenerator, askQuestion, closePrompt, setupExpenseIdGenerator } from "./cli/common.js";
+import { setupTaskIdGenerator, askQuestion, closePrompt, setupExpenseIdGenerator, loadingMessage } from "./cli/common.js";
 import { addTaskCli, listTasksCli, updateTaskCli, removeTaskCli, reportStatusCountCli, listOverdueTasksCli, filterTasksByCategoryCli, markTaskCompleteCli, listGroupedTasksCli, searchTasksCli } from "./cli/taskCliHelper.js";
 import { addExpensesCli, listExpensesCli, removeExpensesCli, updateExpensesCli, filterByDateRangeCli, filterByCategoryCli, totalSpendingCli, summaryByCategory } from "./cli/expenseCliHelper.js";
 
@@ -94,7 +94,7 @@ async function showTaskMenu() {
         console.log("4. Remove Tasks");
         console.log("5. Status Count");
         console.log("6. List Overdue Tasks");
-        console.log("7. Filter Tasks by Categoryy");
+        console.log("7. Filter Tasks by Category");
         console.log("8. Mark Task as Complete");
         console.log("9. List Grouped Tasks");
         console.log("10. Search Task");
@@ -107,6 +107,7 @@ async function showTaskMenu() {
                 await addTaskCli(idGenTasks);
                 break;
             case "2":
+                loadingMessage();
                 await listTasksCli();
                 break;
             case "3":
