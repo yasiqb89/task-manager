@@ -36,7 +36,7 @@ export async function setupExpenseIdGenerator() {
 }
 
 export function loadingMessage() {
-    console.log("loading...");
+    console.log("\nloading...");
 }
 
 export async function simulateDelay(ms = 1000) {

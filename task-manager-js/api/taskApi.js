@@ -10,7 +10,7 @@ export async function getAllTasks({ noDelay = false } = {}) {
     try {
         const data = await readFile(filePath, 'utf-8');
         const raw = JSON.parse(data);
-        if (!noDelay) await simulateDelay(3000);
+        if (!noDelay) await simulateDelay(500);
         return raw.map(obj => Task.parse(obj)); //returns array of objects
 
     } catch (error) {

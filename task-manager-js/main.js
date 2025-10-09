@@ -53,6 +53,7 @@ async function showExpensesMenu() {
                 await addExpensesCli(idGenExpenses);
                 break;
             case "2":
+                loadingMessage();
                 await listExpensesCli();
                 break;
             case "3":

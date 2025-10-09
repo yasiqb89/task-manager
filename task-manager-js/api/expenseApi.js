@@ -9,7 +9,7 @@ export async function getAllExpenses({ noDelay = false } = {}) {
     try {
         const data = await readFile(filePath, 'utf-8');
         const raw = JSON.parse(data);
-        if (!noDelay) await simulateDelay(2000);
+        if (!noDelay) await simulateDelay(500);
         return raw.map(obj => Expense.parse(obj));
 
     } catch (error) {
