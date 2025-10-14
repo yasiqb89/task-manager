@@ -64,3 +64,14 @@ export async function removeTask(id) {
     return true;
 }
 
+export async function getTaskById(id) {
+    const tasks = await getAllTasks();
+    const taskById = tasks.find(task => task.id === Number(id));
+
+    if (taskById.length === tasks.length) {
+        return false;
+    }
+
+    return taskById
+}
+
