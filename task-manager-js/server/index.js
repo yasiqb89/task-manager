@@ -13,7 +13,7 @@ app.use("/api", tasksRouter);
 
 // Simple test route
 app.get("/", (req, res) => {
-    res.send("🚀 Server is running!");
+    res.send("Server is running!");
 });
 
 // Start server
